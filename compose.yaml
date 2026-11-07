@@ -10,7 +10,7 @@ services:
       - ./orthanc-a/orthanc.json:/etc/orthanc/orthanc.json:ro
       - ./orthanc-a/data:/var/lib/orthanc/db
     healthcheck:
-      test: ["CMD", "curl", "--fail", "http://localhost:8042/system"]
+      test: ["CMD", "Orthanc", "--version"]
       interval: 5s
       timeout: 3s
       retries: 20
@@ -26,7 +26,7 @@ services:
       - ./orthanc-b/orthanc.json:/etc/orthanc/orthanc.json:ro
       - ./orthanc-b/data:/var/lib/orthanc/db
     healthcheck:
-      test: ["CMD", "curl", "--fail", "http://localhost:8042/system"]
+      test: ["CMD", "Orthanc", "--version"]
       interval: 5s
       timeout: 3s
       retries: 20
