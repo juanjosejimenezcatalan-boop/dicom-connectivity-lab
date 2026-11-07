@@ -1,0 +1,15 @@
+{
+  "Name": "ORTHANC-B destination PACS",
+  "StorageDirectory": "/var/lib/orthanc/db",
+  "RemoteAccessAllowed": true,
+  "AuthenticationEnabled": false,
+  "DicomServerEnabled": true,
+  "DicomAet": "ORTHANC_B",
+  "DicomPort": 4242,
+  "DicomCheckCalledAet": true,
+  "DicomCheckModalityHost": false,
+  "DicomModalities": {
+    "ORTHANC-A": ["ORTHANC_A", "orthanc-a", 4242]
+  }
+}
+
