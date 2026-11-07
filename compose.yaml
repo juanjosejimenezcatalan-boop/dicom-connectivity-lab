@@ -4,8 +4,8 @@ services:
     container_name: dicom-lab-orthanc-a
     restart: unless-stopped
     ports:
-      - "8044:8042" # REST/UI
-      - "4244:4242" # DICOM
+      - "127.0.0.1:8044:8042" # REST/UI, host-local only
+      - "127.0.0.1:4244:4242" # DICOM, host-local only
     volumes:
       - ./orthanc-a/orthanc.json:/etc/orthanc/orthanc.json:ro
       - ./orthanc-a/data:/var/lib/orthanc/db
@@ -20,8 +20,8 @@ services:
     container_name: dicom-lab-orthanc-b
     restart: unless-stopped
     ports:
-      - "8045:8042" # REST/UI
-      - "4245:4242" # DICOM
+      - "127.0.0.1:8045:8042" # REST/UI, host-local only
+      - "127.0.0.1:4245:4242" # DICOM, host-local only
     volumes:
       - ./orthanc-b/orthanc.json:/etc/orthanc/orthanc.json:ro
       - ./orthanc-b/data:/var/lib/orthanc/db
