@@ -19,6 +19,8 @@ ORTHANC_A (SCU / modality) -- C-ECHO, C-STORE --> ORTHANC_B (SCP / PACS)
 
 Both nodes know each other through `DicomModalities`. On the Docker network, A
 reaches B as `orthanc-b:4242`; `4245` is only for connections from the host.
+Every published port is bound to `127.0.0.1`, so the intentionally
+authentication-free teaching services are not exposed to the local network.
 
 ## Requirements
 
@@ -85,6 +87,10 @@ To view logs while running any test:
 ```sh
 docker compose logs -f orthanc-a orthanc-b
 ```
+
+See [incident and recovery records](docs/incident-recovery.md) for the
+symptom, root cause, test, remediation, and post-recovery verification for the
+association and network failure cases.
 
 ## Clean up
 
