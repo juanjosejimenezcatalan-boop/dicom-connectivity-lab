@@ -1,0 +1,15 @@
+{
+  "Name": "ORTHANC-A simulated modality",
+  "StorageDirectory": "/var/lib/orthanc/db",
+  "RemoteAccessAllowed": true,
+  "AuthenticationEnabled": false,
+  "DicomServerEnabled": true,
+  "DicomAet": "ORTHANC_A",
+  "DicomPort": 4242,
+  "DicomCheckCalledAet": true,
+  "DicomCheckModalityHost": false,
+  "DicomModalities": {
+    "ORTHANC-B": ["ORTHANC_B", "orthanc-b", 4242]
+  }
+}
+
