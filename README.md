@@ -45,6 +45,14 @@ curl http://localhost:8045/studies
 curl http://localhost:8045/system
 ```
 
+## Validation evidence
+
+The following real screenshot of Orthanc B confirms that the destination PACS
+received the synthetic study through C-STORE. It shows the `Synthetic CT
+series`, its `CT` modality, and one received instance for `DICOM-LAB-001`.
+
+![Orthanc B shows the received synthetic CT series](docs/evidence/orthanc-b-ct-series.png)
+
 ## Reproducible failure: incorrect destination AE Title
 
 ```sh
