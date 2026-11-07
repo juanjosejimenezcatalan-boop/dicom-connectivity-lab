@@ -1,0 +1,33 @@
+services:
+  orthanc-a:
+    image: orthancteam/orthanc:26.8.2
+    container_name: dicom-lab-orthanc-a
+    restart: unless-stopped
+    ports:
+      - "8042:8042" # REST/UI
+      - "4242:4242" # DICOM
+    volumes:
+      - ./orthanc-a/orthanc.json:/etc/orthanc/orthanc.json:ro
+      - ./orthanc-a/data:/var/lib/orthanc/db
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost:8042/system"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  orthanc-b:
+    image: orthancteam/orthanc:26.8.2
+    container_name: dicom-lab-orthanc-b
+    restart: unless-stopped
+    ports:
+      - "8043:8042" # REST/UI
+      - "4243:4242" # DICOM
+    volumes:
+      - ./orthanc-b/orthanc.json:/etc/orthanc/orthanc.json:ro
+      - ./orthanc-b/data:/var/lib/orthanc/db
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost:8042/system"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
