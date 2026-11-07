@@ -11,8 +11,8 @@ need docker
 
 docker compose up -d --wait
 
-api_a=http://localhost:8042
-api_b=http://localhost:8043
+api_a=http://localhost:8044
+api_b=http://localhost:8045
 
 echo "1/4 C-ECHO: ORTHANC_A -> ORTHANC_B"
 curl --fail --silent --show-error -X POST "$api_a/modalities/ORTHANC-B/echo" >/dev/null
@@ -49,5 +49,5 @@ printf '%s\n' "$received" | grep -q 'DICOM-LAB-001' || {
   echo "Study was not found on ORTHANC_B" >&2
   exit 1
 }
-echo "    Success. Browse http://localhost:8043/app/explorer.html"
+echo "    Success. Browse http://localhost:8045/app/explorer.html"
 
