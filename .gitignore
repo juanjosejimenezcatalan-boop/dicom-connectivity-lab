@@ -1,4 +1,5 @@
 .env
 orthanc-a/data/
 orthanc-b/data/
+.DS_Store
 
