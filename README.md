@@ -7,18 +7,18 @@ instances: a simulated modality (`ORTHANC_A`) and a destination PACS
 ```
 ORTHANC_A (SCU / modality) -- C-ECHO, C-STORE --> ORTHANC_B (SCP / PACS)
         :4242                                      :4242
- localhost:8042                                  localhost:8043
+ localhost:8044                                  localhost:8045
 ```
 
 ## Topology
 
 | Node | AE Title | Internal DICOM port | Published port | Role |
 | --- | --- | ---: | ---: | --- |
-| A | `ORTHANC_A` | `4242` | `4242` | Simulated modality / SCU |
-| B | `ORTHANC_B` | `4242` | `4243` | Destination PACS / SCP |
+| A | `ORTHANC_A` | `4242` | `4244` | Simulated modality / SCU |
+| B | `ORTHANC_B` | `4242` | `4245` | Destination PACS / SCP |
 
 Both nodes know each other through `DicomModalities`. On the Docker network, A
-reaches B as `orthanc-b:4242`; `4243` is only for connections from the host.
+reaches B as `orthanc-b:4242`; `4245` is only for connections from the host.
 
 ## Requirements
 
@@ -36,13 +36,13 @@ chmod +x scripts/*.sh
 The script starts both services, runs a **C-ECHO** from A, creates a synthetic
 one-instance CT series (`Modality=CT`, CT Image Storage SOP Class), sends it
 using **C-STORE**, and finds the study on B. Open the destination PACS at
-<http://localhost:8043/app/explorer.html> to confirm it visually.
+<http://localhost:8045/app/explorer.html> to confirm it visually.
 
 You can also inspect the resources through the API:
 
 ```sh
-curl http://localhost:8043/studies
-curl http://localhost:8043/system
+curl http://localhost:8045/studies
+curl http://localhost:8045/system
 ```
 
 ## Reproducible failure: incorrect destination AE Title
@@ -60,15 +60,15 @@ configuration even if it is interrupted.
 | Symptom | Check | Fix |
 | --- | --- | --- |
 | `C-ECHO` rejected | Check `orthanc-b` logs; compare the called AET with `DicomAet` | Use `ORTHANC_B` in A's modality configuration |
-| Timeout / connection refused | Run `docker compose ps`; test `orthanc-b:4242` from the Docker network | Start B and use its internal port 4242, not published port 4243 |
+| Timeout / connection refused | Run `docker compose ps`; test `orthanc-b:4242` from the Docker network | Start B and use its internal port 4242, not published port 4245 |
 | C-STORE fails after C-ECHO | Run `docker compose logs orthanc-a orthanc-b` | Review presentation context/SOP Class and storage permissions |
-| Study does not appear on B | Run `curl http://localhost:8043/studies` | Confirm that POST to `/modalities/ORTHANC-B/store` completed successfully |
+| Study does not appear on B | Run `curl http://localhost:8045/studies` | Confirm that POST to `/modalities/ORTHANC-B/store` completed successfully |
 
 To simulate a destination that is down:
 
 ```sh
 docker compose stop orthanc-b
-curl --fail -X POST http://localhost:8042/modalities/ORTHANC-B/echo
+curl --fail -X POST http://localhost:8044/modalities/ORTHANC-B/echo
 docker compose start orthanc-b
 ```
 
